@@ -1,38 +1,352 @@
 .App {
-  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
+.App h1 {
+  text-align: center;
+  color: #333;
+}
+
+.App h2 {
+  color: #666;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.app {
+  text-align: center;
+  padding: 20px;
+}
+
+.game-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.slot-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.player-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 300px;
+}
+
+.names-input {
+  width: 100%;
+  min-height: 200px;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+}
+
+.current-names {
+  text-align: left;
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.current-names h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.current-names ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.current-names li {
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.slot-machine {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.reels {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+.reels::before,
+.reels::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 40px;
+  z-index: 1;
+}
+
+.reels::before {
+  top: -10px;
+  background: linear-gradient(to bottom, 
+    #f0f0f0 0%,
+    #f0f0f0 50%,
+    rgba(240,240,240,0) 100%
+  );
+}
+
+.reels::after {
+  bottom: -10px;
+  background: linear-gradient(to top, 
+    #f0f0f0 0%,
+    #f0f0f0 50%,
+    rgba(240,240,240,0) 100%
+  );
+}
+
+.reel {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  border: 2px solid #333;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.reel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom,
+    rgba(255,255,255,0.2) 0%,
+    rgba(255,255,255,0) 100%
+  );
+}
+
+.spinning {
+  animation: spinAnimation linear infinite;
+}
+
+@keyframes spinAnimation {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.result-section {
+  margin-top: 30px;
+  opacity: 0;
+  transform: scale(0.5) translateZ(-200px);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  perspective: 1000px;
+}
+
+.result-section.show-result {
+  opacity: 1;
+  transform: scale(1) translateZ(0);
+}
+
+.result {
+  font-size: 64px;
+  font-weight: bold;
+  margin: 10px 0;
+  animation: zoomPop 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: #4CAF50;
+  text-shadow: 3px 3px 5px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+@keyframes zoomPop {
+  0% {
+    transform: scale(0.3) translateZ(-100px);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.2) translateZ(50px);
+  }
+  100% {
+    transform: scale(1) translateZ(0);
+    opacity: 1;
+  }
+}
+
+.result-section h3 {
+  margin: 10px 0 0 0;
+  font-size: 28px;
+  color: #666;
+  animation: zoomIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s both;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateZ(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateZ(0);
+  }
+}
+
+.spin-button {
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  min-width: 200px;
+}
+
+.spin-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.spin-button:hover:not(:disabled) {
+  background-color: #45a049;
+}
+
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: white;
+  animation: sparkleAnim 1s linear infinite;
+}
+
+@keyframes sparkleAnim {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1) rotate(180deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sparkle {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.result::before,
+.result::after,
+.result .star {
+  content: '★';
+  position: absolute;
+  color: #ffd700;
+  font-size: 24px;
+  animation: sparkle 1.5s ease-in-out infinite;
+  z-index: -1;
+}
+
+.result::before { 
+  top: -30px; 
+  left: -20px; 
+  animation-delay: 0s;
+  font-size: 20px;
+}
+
+.result::after { 
+  bottom: -20px; 
+  right: -25px; 
+  animation-delay: 0.3s;
+  font-size: 28px;
+}
+
+.result .star-1 { 
+  top: -15px; 
+  right: 20px; 
+  animation-delay: 0.5s;
+  font-size: 16px;
+}
+
+.result .star-2 { 
+  bottom: 0px; 
+  left: -30px; 
+  animation-delay: 0.7s;
+  font-size: 22px;
+}
+
+.result .star-3 { 
+  top: 50%; 
+  right: -35px; 
+  animation-delay: 0.2s;
+  font-size: 18px;
+}
+
+.result .star-4 { 
+  top: -25px; 
+  left: 50%; 
+  animation-delay: 0.4s;
+  font-size: 24px;
+}
+
+.result .star-5 { 
+  bottom: -15px; 
+  left: 40%; 
+  animation-delay: 0.6s;
+  font-size: 20px;
+}
+
+.star {
+  position: absolute;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.title {
+  font-size: 48px;
+  color: #333;
+  text-align: center;
+  margin: 20px 0 40px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+  
