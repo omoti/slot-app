@@ -6,6 +6,19 @@ const SlotMachine = ({ names }) => {
   const [isSpinning, setIsSpinning] = useState(false);
   const [result, setResult] = useState('');
 
+  // namesが変更されたときにリールをランダムに更新
+  useEffect(() => {
+    if (!isSpinning && names.length > 0) {
+      setReels(reels.map(() => Math.floor(Math.random() * names.length)));
+    }
+  }, [names, isSpinning]);
+
+  const reelColors = [
+    '#FFE4E1',
+    '#E0FFFF',
+    '#F0FFF0'
+  ];
+
   const spin = () => {
     if (isSpinning || names.length === 0) return;
     
