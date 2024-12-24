@@ -27,12 +27,14 @@
   gap: 40px;
   max-width: 1000px;
   margin: 0 auto;
+  min-height: 600px;
 }
 
 .slot-section {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  height: 360px;
 }
 
 .player-section {
@@ -40,11 +42,13 @@
   flex-direction: column;
   gap: 20px;
   min-width: 300px;
+  height: 360px;
 }
 
 .names-input {
   width: 100%;
-  min-height: 200px;
+  height: 100%;
+  min-height: 420px;
   padding: 10px;
   font-size: 16px;
   border: 2px solid #ccc;
