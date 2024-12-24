@@ -15,6 +15,11 @@ function App() {
     setNamesInput(value);
     const namesList = value.trim() ? value.split('\n').filter(name => name.trim()) : defaultNames;
     setNames(namesList);
+    
+    if (!isSpinning.some(spinning => spinning)) {
+      const randomName = namesList[Math.floor(Math.random() * namesList.length)];
+      setReels([randomName, randomName, randomName]);
+    }
   };
 
   const spin = () => {
