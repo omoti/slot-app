@@ -36,9 +36,9 @@ function App() {
   const selectAnother = () => {
     if (result) {
       setSelectedHistory([...selectedHistory, { name: result, time: new Date().toLocaleTimeString() }]);
+      setShowResult(false);
+      setResult(null);
     }
-    setResult(null);
-    setShowResult(false);
     setReels([remainingNames[0], remainingNames[0], remainingNames[0]]);
     setTimeout(() => spin(), 100);
   };
@@ -152,7 +152,7 @@ function App() {
             </div>
           </div>
           <div className="scrollable-results">
-            {result && (
+            {result && showResult && !isSpinning.some(spinning => spinning) && (
               <div className={`result-section ${showResult ? 'show-result' : ''}`}>
                 <div className="result">
                   {result}
@@ -167,8 +167,8 @@ function App() {
             )}
 
             {[...selectedHistory].reverse().map((item, index) => (
-              <div key={index} className="previous-result">
-                <div className="result">
+              <div key={`history-${index}`} className="previous-result">
+                <div className="history-result">
                   {item.name}
                 </div>
                 <h3>さん、お願いします！</h3>
