@@ -18,6 +18,8 @@
 .app {
   text-align: center;
   padding: 20px;
+  background-color: #f0f0f0;
+  min-height: 100vh;
 }
 
 .game-container {
@@ -28,13 +30,32 @@
   max-width: 1000px;
   margin: 0 auto;
   min-height: 600px;
+  background-color: #f0f0f0;
 }
 
 .slot-section {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  height: 360px;
+  gap: 10px;
+  height: auto;
+  min-height: 360px;
+  max-height: 700px;
+  position: relative;
+  background-color: #f0f0f0;
+}
+
+.fixed-slot-area {
+  position: sticky;
+  top: 0;
+  background-color: #f0f0f0;
+  z-index: 2;
+  padding-bottom: 20px;
+}
+
+.scrollable-results {
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-top: 20px;
 }
 
 .player-section {
@@ -85,6 +106,9 @@
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .reels {
@@ -221,15 +245,25 @@
   }
 }
 
+.button-container {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0;
+}
+
 .spin-button {
-  padding: 15px 30px;
+  flex: 1;
+  padding: 15px 20px;
   font-size: 18px;
   background-color: #4CAF50;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  min-width: 200px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .spin-button:disabled {
@@ -239,6 +273,15 @@
 
 .spin-button:hover:not(:disabled) {
   background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+.reset-button {
+  background-color: #666;
+}
+
+.reset-button:hover:not(:disabled) {
+  background-color: #555;
 }
 
 .sparkle {
@@ -352,5 +395,96 @@
   margin: 20px 0 40px;
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.action-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.action-button:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+.history-section {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.history-text {
+  color: #666;
+  font-size: 16px;
+  margin: 0;
+  padding: 10px;
+}
+
+.history-text span {
+  color: #4CAF50;
+  font-size: 32px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  margin: 0 5px;
+}
+
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.history-list li {
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  color: #666;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.history-list li:last-child {
+  border-bottom: none;
+}
+
+.history-list li::before {
+  content: '★';
+  margin-right: 10px;
+  font-size: 1.2em;
+  color: #4CAF50;
+}
+
+.previous-result {
+  margin-top: 20px;
+  position: relative;
+}
+
+.previous-result .result {
+  font-size: 64px;
+  font-weight: bold;
+  margin: 10px 0;
+  color: #4CAF50;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.previous-result h3 {
+  margin: 5px 0 0 0;
+  font-size: 28px;
+  color: #666;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
   
