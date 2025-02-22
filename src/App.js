@@ -166,7 +166,7 @@ function App() {
               </div>
             )}
 
-            {selectedHistory.map((item, index) => (
+            {[...selectedHistory].reverse().map((item, index) => (
               <div key={index} className="previous-result">
                 <div className="result">
                   {item.name}
