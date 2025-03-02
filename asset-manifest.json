@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/slot-app/static/css/main.bae6b91b.css",
-    "main.js": "/slot-app/static/js/main.027e7c16.js",
+    "main.css": "/slot-app/static/css/main.d32380e1.css",
+    "main.js": "/slot-app/static/js/main.605e79ee.js",
     "index.html": "/slot-app/index.html",
-    "main.bae6b91b.css.map": "/slot-app/static/css/main.bae6b91b.css.map",
-    "main.027e7c16.js.map": "/slot-app/static/js/main.027e7c16.js.map"
+    "main.d32380e1.css.map": "/slot-app/static/css/main.d32380e1.css.map",
+    "main.605e79ee.js.map": "/slot-app/static/js/main.605e79ee.js.map"
   },
   "entrypoints": [
-    "static/css/main.bae6b91b.css",
-    "static/js/main.027e7c16.js"
+    "static/css/main.d32380e1.css",
+    "static/js/main.605e79ee.js"
   ]
 }
