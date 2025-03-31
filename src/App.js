@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
@@ -12,6 +12,34 @@ function App() {
   const [showResult, setShowResult] = useState(false);
   const [selectedHistory, setSelectedHistory] = useState([]);
   const [remainingNames, setRemainingNames] = useState(defaultNames);
+  const [showShareUrl, setShowShareUrl] = useState(false);
+  const [shareUrl, setShareUrl] = useState('');
+
+  useEffect(() => {
+    try {
+      // URLからnamesパラメータを直接取得
+      const searchParams = window.location.search;
+      const namesMatch = searchParams.match(/[?&]names=([^#]+)/);
+      
+      if (namesMatch) {
+        const encodedNames = namesMatch[1];
+        // エンコードされた文字列をデコード
+        const decodedNames = decodeURIComponent(encodedNames)
+          .split('&')
+          .map(name => decodeURIComponent(name))
+          .filter(name => name.trim());
+        
+        if (decodedNames.length > 0) {
+          setNames(decodedNames);
+          setNamesInput(decodedNames.join('\n'));
+          setRemainingNames(decodedNames);
+          setReels([decodedNames[0], decodedNames[0], decodedNames[0]]);
+        }
+      }
+    } catch (error) {
+      console.error('URLパラメータの解析に失敗しました:', error);
+    }
+  }, []);
 
   const handleNamesInput = (value) => {
     setNamesInput(value);
@@ -107,6 +135,21 @@ function App() {
     });
   };
 
+  const generateAndCopyUrl = () => {
+    const currentNames = namesInput.trim() ? namesInput.split('\n').filter(name => name.trim()) : defaultNames;
+    // 各名前を個別にエンコードして&で結合
+    const encodedNames = currentNames.map(name => encodeURIComponent(name)).join('&');
+    const url = `${window.location.origin}${window.location.pathname}?names=${encodedNames}`;
+    
+    // URLをクリップボードにコピー
+    navigator.clipboard.writeText(url).then(() => {
+      alert('URLをクリップボードにコピーしました！');
+    }).catch(err => {
+      console.error('クリップボードへのコピーに失敗しました:', err);
+      alert('URLのコピーに失敗しました。');
+    });
+  };
+
   return (
     <div className="app">
       <h1 className="title">指名スロット</h1>
@@ -185,6 +228,14 @@ function App() {
             className="names-input"
             rows={10}
           />
+          <div className="share-section">
+            <button 
+              onClick={generateAndCopyUrl}
+              className="share-button"
+            >
+              URLをコピー
+            </button>
+          </div>
         </div>
       </div>
     </div>
