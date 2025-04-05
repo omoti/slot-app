@@ -143,7 +143,7 @@ function App() {
     
     // URLをクリップボードにコピー
     navigator.clipboard.writeText(url).then(() => {
-      alert('URLをクリップボードにコピーしました！');
+      alert(`URLをクリップボードにコピーしました！\n\n※URLには名前一覧が含まれています。共有の際はご注意ください。\n\n${url}`);
     }).catch(err => {
       console.error('クリップボードへのコピーに失敗しました:', err);
       alert('URLのコピーに失敗しました。');
